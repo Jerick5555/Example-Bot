@@ -13,16 +13,16 @@ module.exports = {
 
         // Check if command exists or if user inputted a command
         if (!command || args[0] == undefined) {
-            var helpEmbed = new Discord.MessageEmbed()
+            let helpEmbed = new Discord.MessageEmbed()
                 .setColor('#FF69B4')
                 .setTitle(`All commands, To get help for each command do ${prefix}help {command name}`);
-            var fieldsToAdd = [];
+            let fieldsToAdd = [];
 
             // Finds all the categories of the commands
             for (let commandName of client.commands.keys()) {
                 let categoryExists = false;
                 let commandCategory = client.commands.get(commandName).category;
-                for (var i = 0; i < fieldsToAdd.length; i++) {
+                for (let i = 0; i < fieldsToAdd.length; i++) {
                     if (commandCategory == fieldsToAdd[i][0]) {
                         fieldsToAdd[i][1].push(commandName);
                         categoryExists = true;
@@ -35,12 +35,12 @@ module.exports = {
             let numCategory = fieldsToAdd.length;
 
             // Adds category fields to embed
-            for (var i = 0; i < numCategory; i++) {
+            for (let i = 0; i < numCategory; i++) {
                 let fieldValue = "";
                 let numCommandsInCategory = fieldsToAdd[i][1].length;
 
                 // Adds commands to its respective category
-                for (var j = 0; j < numCommandsInCategory; j++) {
+                for (let j = 0; j < numCommandsInCategory; j++) {
                     fieldValue += "`" + fieldsToAdd[i][1][j] + "` ";
                 }
                 helpEmbed.addField(fieldsToAdd[i][0], fieldValue);
