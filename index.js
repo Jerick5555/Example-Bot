@@ -1,9 +1,7 @@
 const Discord = require('discord.js');
-const mongoose = require('mongoose');
 const client = new Discord.Client();
 const { prefix } = require('./config.json');
 const fs = require('fs');
-client.mongoose = require('./utils/mongoose');
 
 client.commands = new Discord.Collection();
 
@@ -27,7 +25,7 @@ function botStatus() {
 client.login(process.env.token);
 
 client.on('message', message => {
-    // Check if the message was sent by the bot
+    // Check if the message was sent by a bot
     if (message.author.bot) return;
 
     // Check if message starts with the prefix

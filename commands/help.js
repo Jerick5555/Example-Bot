@@ -53,7 +53,7 @@ module.exports = {
                 .setColor('#FF69B4')
                 .setTitle(`${command.name.charAt(0).toUpperCase() + command.name.slice(1)} help`)
                 .addFields(
-                    { name: command.description, value: `Syntax: ${prefix}${command.name} ${command.syntax}` },
+                    { name: command.description, value: `Syntax: ${prefix}${command.name} ${command.syntax||""}` },
                 );
             message.channel.send(helpEmbed);
         }
