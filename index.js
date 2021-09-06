@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES']});
 const { prefix } = require('./config.json');
 const fs = require('fs');
-
+const dotenv = require('dotenv');
+dotenv.config(); //Build the process.env object.
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
@@ -17,15 +18,10 @@ client.once('ready', () => {
 });
 
 // Tells us how many servers have our bot
-setInterval(botStatus, 60000);
-function botStatus() {
-    client.user.setActivity(client.guilds.cache.size + " servers| -help for help");
-}
-
 client.login(process.env.token);
 
 client.on('message', message => {
-    // Check if the message was sent by a bot
+    // Check if the message was sent by the bot
     if (message.author.bot) return;
 
     // Check if message starts with the prefix

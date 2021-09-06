@@ -6,7 +6,7 @@ module.exports = {
     category: "Utility",
     execute(message, args) {
         const Discord = require('discord.js');
-        
+
         let highlightedMessage = "";
         args.forEach(arg => {
             highlightedMessage += arg + " ";
@@ -22,7 +22,7 @@ module.exports = {
             .setTitle(highlightedMessage)
             .setFooter(authorName);
 
-        message.channel.send(highlightEmbed);
+        message.channel.send({ embeds: [highlightEmbed] });
         message.delete();
     }
 }

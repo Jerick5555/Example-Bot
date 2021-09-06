@@ -13,6 +13,6 @@ module.exports = {
             .setTitle('🏓 Pong!')
             .setDescription(`Bot Latency is **${Math.floor(msg.createdTimestamp - message.createdTimestamp)} ms** \nAPI Latency is **${Math.round(client.ws.ping)} ms**`);
 
-        message.channel.send(embed);
+        message.channel.send({ embeds: [embed] });
     }
 }

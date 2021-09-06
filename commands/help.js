@@ -6,7 +6,7 @@ module.exports = {
     execute(message, args) {
         const Discord = require('discord.js');
         const client = require('../index.js').client;
-        const { prefix } = require('./config.json');
+        const { prefix } = require('../config.json');
 
         message.channel.send('type help + {command name for specific help on that command}');
         const command = client.commands.get(args[0]) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(args[0]));
@@ -16,6 +16,7 @@ module.exports = {
             let helpEmbed = new Discord.MessageEmbed()
                 .setColor('#FF69B4')
                 .setTitle(`All commands, To get help for each command do ${prefix}help {command name}`);
+            
             let fieldsToAdd = [];
 
             // Finds all the categories of the commands
@@ -36,6 +37,9 @@ module.exports = {
 
             // Adds category fields to embed
             for (let i = 0; i < numCategory; i++) {
+                console.log("EJFIUEHFUIEHNDFC")
+                console.log(fieldsToAdd[i][0])
+                
                 let fieldValue = "";
                 let numCommandsInCategory = fieldsToAdd[i][1].length;
 
@@ -43,9 +47,11 @@ module.exports = {
                 for (let j = 0; j < numCommandsInCategory; j++) {
                     fieldValue += "`" + fieldsToAdd[i][1][j] + "` ";
                 }
+                console.log(fieldValue)
                 helpEmbed.addField(fieldsToAdd[i][0], fieldValue);
             }
-            message.channel.send(helpEmbed);
+            console.log(helpEmbed)
+            message.channel.send({ embeds: [helpEmbed] });
         }
         else {
             // Send embed of command's info
@@ -55,7 +61,7 @@ module.exports = {
                 .addFields(
                     { name: command.description, value: `Syntax: ${prefix}${command.name} ${command.syntax||""}` },
                 );
-            message.channel.send(helpEmbed);
+            message.channel.send({ embeds: [helpEmbed] });
         }
     }
 };
