@@ -6,6 +6,7 @@ module.exports = {
         const client = require('../index.js').client;
         const { MessageEmbed } = require('discord.js');
 
+        // waits for message to be sent
         const msg = await message.channel.send('🏓 Pinging...');
 
         const embed = new MessageEmbed()

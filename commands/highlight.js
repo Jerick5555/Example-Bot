@@ -7,13 +7,16 @@ module.exports = {
     execute(message, args) {
         const Discord = require('discord.js');
 
+        // Stich message back together
         let highlightedMessage = "";
         args.forEach(arg => {
             highlightedMessage += arg + " ";
         });
 
+        // Get discord username
         let user = message.member.user.tag;
         user = user.toString();
+        // Removes username tag
         user = user.split("#", user.length - 4);
         let authorName = user[0];
 

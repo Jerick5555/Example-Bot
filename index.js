@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config(); //Build the process.env object.
 client.commands = new Discord.Collection();
 
+// Gets all commands in commands folder
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
@@ -17,7 +18,11 @@ client.once('ready', () => {
     exports.client = client;
 });
 
-// Tells us how many servers have our bot
+setInterval(botStatus, 60000);
+function botStatus() {
+    client.user.setActivity(client.guilds.cache.size + " servers| -help for help");
+}
+
 client.login(process.env.token);
 
 client.on('message', message => {
@@ -26,8 +31,11 @@ client.on('message', message => {
 
     // Check if message starts with the prefix
     if (!message.content.startsWith(prefix)) return;
+
+    // Removes prefix and seperates 
     const args = message.content.slice(prefix.length).match(/\S+/g);
     const commandName = args.shift().toLowerCase();
+    // Gets command
     const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     if (!command) {
         message.channel.send(`Invalid command. Type ${prefix}help for commands to use.`);

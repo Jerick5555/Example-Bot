@@ -13,11 +13,14 @@ module.exports = {
 
         // Check if command exists or if user inputted a command
         if (!command || args[0] == undefined) {
+            // Generic help
             let helpEmbed = new Discord.MessageEmbed()
                 .setColor('#FF69B4')
                 .setTitle(`All commands, To get help for each command do ${prefix}help {command name}`);
             
             let fieldsToAdd = [];
+            // At the end:
+            // fieldsToAdd = [["Utility", ["help", "highlight", "ping"]]]
 
             // Finds all the categories of the commands
             for (let commandName of client.commands.keys()) {
@@ -37,23 +40,20 @@ module.exports = {
 
             // Adds category fields to embed
             for (let i = 0; i < numCategory; i++) {
-                console.log("EJFIUEHFUIEHNDFC")
-                console.log(fieldsToAdd[i][0])
-                
                 let fieldValue = "";
                 let numCommandsInCategory = fieldsToAdd[i][1].length;
 
                 // Adds commands to its respective category
                 for (let j = 0; j < numCommandsInCategory; j++) {
+                    // ` ` special format in discord
                     fieldValue += "`" + fieldsToAdd[i][1][j] + "` ";
                 }
-                console.log(fieldValue)
                 helpEmbed.addField(fieldsToAdd[i][0], fieldValue);
             }
-            console.log(helpEmbed)
             message.channel.send({ embeds: [helpEmbed] });
         }
         else {
+            // Specific help
             // Send embed of command's info
             helpEmbed = new Discord.MessageEmbed()
                 .setColor('#FF69B4')
